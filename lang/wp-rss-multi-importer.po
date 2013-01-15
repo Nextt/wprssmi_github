@@ -1,0 +1,899 @@
+# Copyright (C) 2012 RSS Multi Importer
+# This file is distributed under the same license as the RSS Multi Importer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: RSS Multi Importer 2.52\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-rss-multi-importer\n"
+"POT-Creation-Date: 2012-12-15 14:24:48+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-12-15 06:25-0800\n"
+"Last-Translator: Allen Weiss <me@allenweiss.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: inc/admin_init.php:104
+msgid ""
+"If you find this plugin helpful, let others know by <a target=\"_blank\" "
+"href=\"http://wordpress.org/extend/plugins/wp-rss-multi-importer/\">rating "
+"it here</a>. That way, it will help others determine whether or not they "
+"should try out the plugin. Thank you."
+msgstr ""
+
+#: inc/admin_init.php:110
+msgid "Dismiss This Message"
+msgstr ""
+
+#: inc/admin_init.php:118
+msgid "WP RSS Multi-Importer Options"
+msgstr ""
+
+#: inc/admin_init.php:142
+msgid "Overview"
+msgstr ""
+
+#: inc/admin_init.php:143
+msgid "Feeds"
+msgstr ""
+
+#: inc/admin_init.php:144
+msgid "Categories"
+msgstr ""
+
+#: inc/admin_init.php:145
+msgid "Shortcode Settings"
+msgstr ""
+
+#: inc/admin_init.php:146
+msgid "Feed to Post"
+msgstr ""
+
+#: inc/admin_init.php:147 inc/panel_messages.php:67
+msgid "Shortcode Parameters"
+msgstr ""
+
+#: inc/admin_init.php:148
+msgid "Template Options"
+msgstr ""
+
+#: inc/admin_init.php:150
+msgid "Export RSS"
+msgstr ""
+
+#: inc/cron.php:53
+msgid "Once Weekly"
+msgstr ""
+
+#: inc/cron.php:67
+msgid "Once Every 10 Minutes"
+msgstr ""
+
+#: inc/options.php:9
+msgid "Feed Name "
+msgstr ""
+
+#: inc/options.php:15
+msgid "Feed URL "
+msgstr ""
+
+#: inc/options.php:20
+msgid "Feed Category "
+msgstr ""
+
+#: inc/options.php:25
+msgid "Category ID # "
+msgstr ""
+
+#: inc/options.php:68
+msgid "This feed has errors"
+msgstr ""
+
+#: inc/options.php:92
+msgid ""
+"Start by adding feeds (RSS Feeds tab), adding Categories (Categories tab), "
+"then assign the feeds to the categories in the RSS Feeds tab.  Then use "
+"shortcode and put it on the page where you want to display the feed "
+"articles.  Select the templates and change the settings in the Settings tab. "
+"Use shortcode parameters (Shortcode Parameters tab) to put more "
+"customization onto your feed presentation."
+msgstr ""
+
+#: inc/options.php:94
+msgid ""
+"Start by adding feeds (RSS Feeds tab), adding Categories (Categories tab), "
+"then assign the feeds to the categories in the RSS Feeds tab.  Then click on "
+"the Feed to Post tab and set the options."
+msgstr ""
+
+#: inc/options.php:96
+msgid ""
+"If your theme supports widgets, then start by adding feeds (RSS Feeds tab), "
+"adding Categories (Categories tab), then assign the feeds to the categories "
+"in the RSS Feeds tab.  Then go to Appearance->Widgets, add the RSS Multi-"
+"Importer widget, configure the options and click Save.."
+msgstr ""
+
+#: inc/options.php:97
+msgid ""
+"You don't have to choose one way or another to present the feeds.  You can "
+"do all 3 at the same time."
+msgstr ""
+
+#: inc/options.php:178
+msgid "Settings for Displaying Feed Items Using Shortcode"
+msgstr ""
+
+#: inc/options.php:218
+msgid "Options Settings for Displaying the Feed Items"
+msgstr ""
+
+#: inc/options.php:222 inc/template_functions.php:156
+msgid "Template"
+msgstr ""
+
+#: inc/options.php:233
+msgid ""
+"You must choose and then click Save Settings for the plugin to function "
+"correctly.  If not sure which options to choose right now, don't worry - the "
+"most common settings have been set for you - just click Save Settings."
+msgstr ""
+
+#: inc/options.php:239
+msgid "Sorting and Separating Posts"
+msgstr ""
+
+#: inc/options.php:241
+msgid "Sort Output by Date (Descending = Closest Date First"
+msgstr ""
+
+#: inc/options.php:244
+msgid "Ascending"
+msgstr ""
+
+#: inc/options.php:245
+msgid "Descending"
+msgstr ""
+
+#: inc/options.php:250
+msgid "Separate Today and Earlier Posts"
+msgstr ""
+
+#: inc/options.php:253 inc/options.php:286 inc/options.php:342
+msgid "Yes"
+msgstr ""
+
+#: inc/options.php:254 inc/options.php:287 inc/options.php:343
+msgid "No"
+msgstr ""
+
+#: inc/options.php:258
+msgid "Number of Posts and Pagination"
+msgstr ""
+
+#: inc/options.php:259
+msgid "Number of Entries per Feed"
+msgstr ""
+
+#: inc/options.php:272
+msgid "Number of Entries per Page of Output"
+msgstr ""
+
+#: inc/options.php:284
+msgid "Do you want pagination?"
+msgstr ""
+
+#: inc/options.php:288
+msgid "(Note: this will override the Number of Entries per Page of Output)"
+msgstr ""
+
+#: inc/options.php:294
+msgid "Number of Posts per Page for Pagination"
+msgstr ""
+
+#: inc/options.php:306
+msgid "How Links Open and No Follow Option"
+msgstr ""
+
+#: inc/options.php:308 inc/options.php:881
+msgid "Target Window (when link clicked, where should it open?)"
+msgstr ""
+
+#: inc/options.php:310 inc/options.php:883
+msgid "Use LightBox"
+msgstr ""
+
+#: inc/options.php:311 inc/options.php:884
+msgid "Open in Same Window"
+msgstr ""
+
+#: inc/options.php:312 inc/options.php:885
+msgid "Open in New Window"
+msgstr ""
+
+#: inc/options.php:321
+msgid "What Shows - Attribution"
+msgstr ""
+
+#: inc/options.php:325
+msgid "Feed Source Attribution Label"
+msgstr ""
+
+#: inc/options.php:327
+msgid "Source"
+msgstr ""
+
+#: inc/options.php:328
+msgid "Via"
+msgstr ""
+
+#: inc/options.php:329
+msgid "Club"
+msgstr ""
+
+#: inc/options.php:330
+msgid "Sponsor"
+msgstr ""
+
+#: inc/options.php:331
+msgid "No Attribution"
+msgstr ""
+
+#: inc/options.php:334 inc/options.php:901
+msgid "Show Feed or Author Name (if available)"
+msgstr ""
+
+#: inc/options.php:338
+msgid "What Shows - EXCERPTS"
+msgstr ""
+
+#: inc/options.php:340
+msgid "<b>Show Excerpt</b>"
+msgstr ""
+
+#: inc/options.php:346
+msgid "Show Category Name"
+msgstr ""
+
+#: inc/options.php:352
+msgid ""
+"Let your readers determine if they want to see the excerpt with a show-hide "
+"option. "
+msgstr ""
+
+#: inc/options.php:356 inc/options.php:889
+msgid "Excerpt length (number of words)"
+msgstr ""
+
+#: inc/options.php:364 inc/options.php:897
+msgid "Give me everything"
+msgstr ""
+
+#: inc/options.php:366
+msgid "Image Handling"
+msgstr ""
+
+#: inc/options.php:367
+msgid ""
+"An attempt will be made to select an image for your post.  Usually this is "
+"the first image in the content or in a feed enclosure, but you have the "
+"option - if those are not available - to get the first image in the content."
+msgstr ""
+
+#: inc/options.php:368 inc/options.php:929
+msgid "Check to get rid of all images in the excerpt."
+msgstr ""
+
+#: inc/options.php:370
+msgid "Check to use any image in the content if possible"
+msgstr ""
+
+#: inc/options.php:373
+msgid ""
+"You can adjust the image, if it exists.  Note that including images in your "
+"feed may slow down how quickly it renders on your site, so you'll need to "
+"experiment with these settings."
+msgstr ""
+
+#: inc/options.php:374
+msgid ""
+"If you want excerpt images, check to fix their width at 150 (can be over-"
+"written in shortcode)."
+msgstr ""
+
+#: inc/options.php:376
+msgid "Float images to the left (can be over-written in shortcode)."
+msgstr ""
+
+#: inc/options.php:379
+msgid "Get Social"
+msgstr ""
+
+#: inc/options.php:380 inc/options.php:932
+msgid "Add social icons (Twitter and Facebook) to each post. "
+msgstr ""
+
+#: inc/options.php:384
+msgid "Cache and Conflict Handling"
+msgstr ""
+
+#: inc/options.php:386
+msgid ""
+"Number of minutes you want the post data held in cache (match to how often "
+"your feeds are updated)"
+msgstr ""
+
+#: inc/options.php:405
+msgid "Check if you are having colorbox conflict problems."
+msgstr ""
+
+#: inc/options.php:408
+msgid "Check if you want to suppress warning messages."
+msgstr ""
+
+#: inc/options.php:421 inc/options.php:608
+msgid "Help Others"
+msgstr ""
+
+#: inc/options.php:421 inc/options.php:608
+msgid ""
+"If you find this plugin helpful, let others know by <a href=\"http://"
+"wordpress.org/extend/plugins/wp-rss-multi-importer/\" target=\"_blank"
+"\">rating it here</a>.  That way, it will help others determine whether or "
+"not they should try out the plugin.  Thank you."
+msgstr ""
+
+#: inc/options.php:652
+msgid "RSS Multi-Importer Categories (and their shortcodes)"
+msgstr ""
+
+#: inc/options.php:710
+msgid "Export Your RSS Feed"
+msgstr ""
+
+#: inc/options.php:714
+msgid ""
+"You can re-export your feeds as an RSS feed for your readers.  You configure "
+"some options for this feed here.  Please note this feature is in beta and is "
+"not supported as much as the other features."
+msgstr ""
+
+#: inc/options.php:735
+msgid "Export Feed Options Settings"
+msgstr ""
+
+#: inc/options.php:738
+msgid "Feed Title"
+msgstr ""
+
+#: inc/options.php:742
+msgid "Feed Slug"
+msgstr ""
+
+#: inc/options.php:744
+msgid "(no spaces are allowed!  See what a slug is below)"
+msgstr ""
+
+#: inc/options.php:746
+msgid "Feed Description"
+msgstr ""
+
+#: inc/options.php:750
+msgid "Check to get rid of all images in the feed output."
+msgstr ""
+
+#: inc/options.php:765 inc/options.php:769
+msgid "Your RSS feed is here:"
+msgstr ""
+
+#: inc/options.php:766
+msgid ""
+"To activate this feature, you may need to save your permalinks again by "
+"going to Settings -> Permalinks and clicking Save Changes."
+msgstr ""
+
+#: inc/options.php:786
+msgid "Put Your RSS Feed Into Blog Posts"
+msgstr ""
+
+#: inc/options.php:789
+msgid ""
+"You can have your RSS feed imported into blog posts, so people can comment "
+"on them.  You configure some options for this here."
+msgstr ""
+
+#: inc/options.php:790
+msgid ""
+"You can delete any post created by this plugin by simply deleting the post."
+msgstr ""
+
+#: inc/options.php:791
+msgid ""
+"Choose how often you want feeds to go into your blog posts.  You must check "
+"to activate this feature."
+msgstr ""
+
+#: inc/options.php:814
+msgid "Feed to Post Options Settings"
+msgstr ""
+
+#: inc/options.php:816
+msgid "Check to Activate this Feature"
+msgstr ""
+
+#: inc/options.php:827
+msgid ""
+"How often to import feeds (to change the fetch schedule, first deactivate, "
+"then change, then activate again)"
+msgstr ""
+
+#: inc/options.php:838
+msgid "Default status of posts"
+msgstr ""
+
+#: inc/options.php:851
+msgid "Number of Entries per Feed to Fetch"
+msgstr ""
+
+#: inc/options.php:865
+msgid ""
+"Number of Total Post Entries per Fetch (should be much greater than the "
+"number of entries per feed)"
+msgstr ""
+
+#: inc/options.php:904
+msgid "Show Feed Source"
+msgstr ""
+
+#: inc/options.php:909
+msgid "Post to blog user_id"
+msgstr ""
+
+#: inc/options.php:912
+msgid "Maximum width size of images"
+msgstr ""
+
+#: inc/options.php:918
+msgid "unrestricted"
+msgstr ""
+
+#: inc/options.php:925
+msgid "Check to over-ride the posts date/time with the current date and time."
+msgstr ""
+
+#: inc/options.php:943
+msgid ""
+"Restrict feeds to one of your defined RSS Multi Importer categories and "
+"place them in your blog categories"
+msgstr ""
+
+#: inc/options.php:944
+msgid ""
+"Choose a category and enter 0 if you want this to go into an uncategorized "
+"category on your blog, or enter the ID number of the blog category you want "
+"the posts to go into. <a href=\"http://www.allenweiss.com/faqs/finding-the-"
+"id-number-for-feed-to-post-category\" target=_\"blank\">How to find this ID "
+"number.</a>"
+msgstr ""
+
+#: inc/options.php:1021
+msgid ""
+"<b>NOTE: If you set up categories (in Category Options) you can restrict "
+"only feeds in that category to go into blog posts.</b> "
+msgstr ""
+
+#: inc/options.php:1035
+msgid "CLICK TO FETCH FEEDS NOW"
+msgstr ""
+
+#: inc/panel_messages.php:9
+msgid "Usage Details"
+msgstr ""
+
+#: inc/panel_messages.php:10
+msgid "Step 1:"
+msgstr ""
+
+#: inc/panel_messages.php:11
+msgid ""
+"Enter a name and the full URL (with http://) for each of your feeds. The "
+"name will be used to identify which feed produced the link (see the "
+"Attribution Label option below). Click Save Settings."
+msgstr ""
+
+#: inc/panel_messages.php:13
+msgid "Step 2 (how to present the feeds):"
+msgstr ""
+
+#: inc/panel_messages.php:13
+msgid ""
+"First, decide whether you want to have the feeds go into blog posts, so "
+"people can comment on them.  If so, you can go directly to the Feed to Post "
+"Options, set them and you are done."
+msgstr ""
+
+#: inc/panel_messages.php:15
+msgid ""
+"If you'd rather have the feeds show up in a more typical way (and use "
+"templates to customize how they look), go to the tab called"
+msgstr ""
+
+#: inc/panel_messages.php:15
+msgid "Setting Options"
+msgstr ""
+
+#: inc/panel_messages.php:15
+msgid "choose options and click Save Settings."
+msgstr ""
+
+#: inc/panel_messages.php:17
+msgid "Step 3 (only relevant if you're not using the Feed to Post feature):"
+msgstr ""
+
+#: inc/panel_messages.php:17
+msgid ""
+"Put this shortcode, [wp_rss_multi_importer], on the page you wish to have "
+"the feed."
+msgstr ""
+
+#: inc/panel_messages.php:20
+msgid ""
+"You can also assign each feed to a category. Go to the Category Options tab, "
+"enter as many categories as you like.</p><p>Then you can restrict what shows "
+"up on a given page by using this shortcode, like [wp_rss_multi_importer "
+"category=\"2\"] (or [wp_rss_multi_importer category=\"1,2\"] to have two "
+"categories) on the page you wish to have only show feeds from those "
+"categories."
+msgstr ""
+
+#: inc/panel_messages.php:31
+msgid "How to Use Templates"
+msgstr ""
+
+#: inc/panel_messages.php:71
+msgid ""
+"Customize some of the ways the feeds are presented on your page by using "
+"shortcode parameters.  Here are some examples:"
+msgstr ""
+
+#: inc/panel_messages.php:75
+msgid "FEATURE CHANGE"
+msgstr ""
+
+#: inc/panel_messages.php:75
+msgid "PARAMETER"
+msgstr ""
+
+#: inc/panel_messages.php:75
+msgid "DEFAULT"
+msgstr ""
+
+#: inc/panel_messages.php:75
+msgid "EXAMPLE"
+msgstr ""
+
+#: inc/panel_messages.php:76
+msgid "Headline font size"
+msgstr ""
+
+#: inc/panel_messages.php:77
+msgid "Headline bold weight"
+msgstr ""
+
+#: inc/panel_messages.php:78
+msgid "Style of the Today and Earlier tags"
+msgstr ""
+
+#: inc/panel_messages.php:79
+msgid "If using excerpt, symbol or word you want to indicate More.."
+msgstr ""
+
+#: inc/panel_messages.php:80
+msgid "Change the width of the maximum image size"
+msgstr ""
+
+#: inc/panel_messages.php:81
+msgid "Change the style of the date"
+msgstr ""
+
+#: inc/panel_messages.php:82
+msgid "Change how images float on a page"
+msgstr ""
+
+#: inc/panel_messages.php:83
+msgid "Change whether the date shows or not"
+msgstr ""
+
+#: inc/panel_messages.php:84
+msgid "Change whether the attribution shows or not (e.g., news source)"
+msgstr ""
+
+#: inc/panel_messages.php:85
+msgid "Specify the cache time (to override global setting)"
+msgstr ""
+
+#: inc/panel_messages.php:87
+msgid ""
+"Specific the number of posts per feed instead of using the general number in "
+"the settings panel<"
+msgstr ""
+
+#: inc/panel_messages.php:88
+msgid "Change the float of the elements in the feed"
+msgstr ""
+
+#: inc/panel_messages.php:89
+msgid "Use this if bringing in a Pinterest feed..to display correctly"
+msgstr ""
+
+#: inc/panel_messages.php:90
+msgid "Use this to override the maximum items per page"
+msgstr ""
+
+#: inc/panel_messages.php:92
+msgid "Use this to override the show images option"
+msgstr ""
+
+#: inc/panel_messages.php:93
+msgid "Use this to override the show more option"
+msgstr ""
+
+#: inc/panel_messages.php:94
+msgid "Use this to override the author preposition"
+msgstr ""
+
+#: inc/panel_messages.php:95
+msgid "Use this to change the template"
+msgstr ""
+
+#: inc/panel_messages.php:104
+msgid ""
+"You can use combinations of parameters, too.  So, if you'd like to change "
+"the headline font size to 18px and make it a heavier bold and change the "
+"more in the excerpt to >>, just do this:   [wp_rss_multi_importer hdsize="
+"\"18px\" hdweight=\"500\" morestyle=\">>\"] "
+msgstr ""
+
+#: inc/panel_messages.php:105
+msgid ""
+"If setting the style of the Today and Earlier tags, you need to enter the "
+"entire inline css - so be careful."
+msgstr ""
+
+#: inc/panel_messages.php:120
+msgid "How Does This Work?"
+msgstr ""
+
+#: inc/panel_messages.php:122
+msgid ""
+"This plugin does several different things.  Mainly, it brings in RSS feeds "
+"and aggregates and sorts them and puts them on your web site.  You can "
+"assign categories to the feeds."
+msgstr ""
+
+#: inc/panel_messages.php:123
+msgid ""
+"You can put them on your web site in 3 different ways. First, you can "
+"present them using shortcode using one of 8 different templates (see the "
+"Settings Option for this).  Second, the plugin can take the feeds and put "
+"them directly into your blog posts, so people can comment on them (see the "
+"Feed to Post Options for this).  Third, it provides you with a feed to give "
+"your readers (see the Export Feed Options for this)."
+msgstr ""
+
+#: inc/panel_messages.php:124
+msgid ""
+"Finally, you don't have to choose one way or another to present the feeds.  "
+"You can do all 3 at the same time."
+msgstr ""
+
+#: inc/panel_messages.php:129
+msgid "Help Us Help You"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:13
+msgid "Use this to put RSS feeds on your site"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:232 wp-rss-multi-importer.php:476
+msgid ""
+"There is a problem with the feeds you entered.  Go to our <a href='http://"
+"www.allenweiss.com/wp_plugin'>support page</a> and we'll help you diagnose "
+"the problem."
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:426
+msgid "RSS Feeds"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:466
+msgid "Widget Title"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:472
+msgid "Show RSS icon"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:476
+msgid "URL to link title to another page (optional)"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:484
+msgid "Target Window"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:502
+msgid "Check to sort ascending"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:507
+msgid "Show date"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:512
+msgid "Show excerpt (will not show if scrolling)"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:518
+msgid "Show image (will not show if scrolling)"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:524
+msgid "Check to add scrolling motion"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:529
+msgid "Check to get just a simple unordered list"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:534
+msgid "Which category do you want displayed?"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:561
+msgid "How many total results displayed?"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:575
+msgid "How many posts per feed?"
+msgstr ""
+
+#: inc/rss_multi_importer_widget.php:601
+msgid "Background Color:"
+msgstr ""
+
+#: inc/scripts.php:45
+msgid "Delete this category"
+msgstr ""
+
+#: inc/scripts.php:46
+msgid "Delete this feed"
+msgstr ""
+
+#: inc/scripts.php:47
+msgid "This must be an integer"
+msgstr ""
+
+#: inc/scripts.php:48
+msgid "Bad URL- feeds start with http"
+msgstr ""
+
+#: inc/template_functions.php:10
+msgid ""
+"Your templates have been restored.  Go back to the settings options tab and "
+"select your template."
+msgstr ""
+
+#: inc/template_functions.php:52
+msgid ""
+"SUCCESS. Your template has been stored in the database.  After the next "
+"update of the plugin, simply come back to this page, hit RESTORE, and you'll "
+"have access to the same template again.</p><p>If you make changes to your "
+"template, just return to this page and save it again. It's that simple."
+msgstr ""
+
+#: inc/template_functions.php:83
+msgid "Only the CSS template was saved."
+msgstr ""
+
+#: inc/template_functions.php:118
+msgid ""
+"Your files have been restored.  Note they are still saved in the database."
+msgstr ""
+
+#: inc/template_functions.php:152
+msgid ""
+"Choose a template for your output.  Choose DEFAULT if you want the typical "
+"template.  You can also customize your own template.  <a href=\"options-"
+"general.php?page=wp_rss_multi_importer_admin&tab=template_options\">Go here "
+"to learn more about this.</a>  NOTE:  all options below are available for "
+"the DEFAULT template only."
+msgstr ""
+
+#: inc/template_functions.php:200
+msgid ""
+"Here is the template you are currently using.  If you changed the template, "
+"you can save it by giving it a new name and click Save This Template. When "
+"you do this, you will also be saving the CSS template."
+msgstr ""
+
+#: inc/template_functions.php:201
+msgid "Your Current Template:"
+msgstr ""
+
+#: inc/template_functions.php:206
+msgid "Give your current template a unique name:"
+msgstr ""
+
+#: inc/template_functions.php:208
+msgid "Save This Template"
+msgstr ""
+
+#: inc/template_functions.php:211
+msgid "CLICK TO JUST SAVE CSS FILE"
+msgstr ""
+
+#: inc/template_functions.php:216
+msgid "Restore"
+msgstr ""
+
+#: inc/template_functions.php:218
+msgid "Save Again"
+msgstr ""
+
+#: wp-rss-multi-importer.php:173
+msgid ""
+"You need to set up the WP RSS Multi Importer Plugin before any results will "
+"show here.  Just go into the <a href='/wp-admin/options-general.php?"
+"page=wp_rss_multi_importer_admin'>settings panel</a> and put in some RSS "
+"feeds"
+msgstr ""
+
+#: wp-rss-multi-importer.php:313
+msgid ""
+"One more step...go into the the <a href='/wp-admin/options-general.php?"
+"page=wp_rss_multi_importer_admin&tab=setting_options'>Settings Panel and "
+"choose Options.</a>"
+msgstr ""
+
+#: wp-rss-multi-importer.php:356
+msgid ""
+"You have one feed and it's not valid.  This is likely a problem with the "
+"source of the RSS feed.  Contact our support forum for help."
+msgstr ""
+
+#: wp-rss-multi-importer.php:562
+msgid ""
+"One more step...go into the <a href='/wp-admin/options-general.php?"
+"page=wp_rss_multi_importer_admin&tab=setting_options'>Settings Panel and "
+"choose a Template.</a>"
+msgstr ""
+
+#: wp-rss-multi-importer.php:579
+msgid "Next page"
+msgstr ""
+
+#: wp-rss-multi-importer.php:582
+msgid "Previous page"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "RSS Multi Importer"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (RSS Multi Importer 2.52)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (RSS Multi Importer 2.52)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.allenweiss.com/wp_plugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Imports & merges multiple feeds. Make blog posts or display on a page, "
+"excerpts w/ images, 8 templates, categorize and more."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Allen Weiss"
+msgstr ""
