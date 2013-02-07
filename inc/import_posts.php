@@ -1,8 +1,8 @@
 <?php
 
 
-$feedID = $_GET['rssmi_feedID'];
-$catID = $_GET['rssmi_catID'];
+$feedID = (isset($_GET['rssmi_feedID'])) ? $_GET['rssmi_feedID'] : null;
+$catID = (isset($_GET['rssmi_catID'])) ? $_GET['rssmi_catID'] : null;
 if (!IS_NULL($feedID) || !IS_NULL($catID)) {
     $post_options = get_option('rss_post_options');
     if ($post_options['active'] == 1) {
@@ -197,20 +197,20 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
     if (!empty($option_items)) {
 
-
+        $dumpthis = false;
 //GET PARAMETERS
         $size = count($option_items);
         $sortDir = 0; // 1 is ascending
-        $maxperPage = $options['maxperPage'];
+        $maxperPage = (isset($options['maxperPage'])) ? $options['maxperPage'] : 5;
         global $setFeaturedImage;
         $setFeaturedImage = $post_options['setFeaturedImage'];
-        $addSource = $post_options['addSource'];
+        $addSource = (isset($post_options['addSource'])) ? $post_options['addSource'] : false;
         $maxposts = $post_options['maxfeed'];
         $post_status = $post_options['post_status'];
-        $addAuthor = $post_options['addAuthor'];
+        $addAuthor = (isset($post_options['addAuthor'])) ? $post_options['addAuthor'] : false;
         $bloguserid = $post_options['bloguserid'];
         $post_format = $post_options['post_format'];
-        $postTags = $post_options['postTags'];
+        $postTags = (isset($post_options['postTags'])) ? $post_options['postTags'] : array();
         global $RSSdefaultImage;
         $RSSdefaultImage = $post_options['RSSdefaultImage']; // 0- process normally, 1=use default for category, 2=replace when no image available
 
@@ -250,8 +250,8 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
         $descNum = $post_options['descnum'];
         $stripAll = $post_options['stripAll'];
         $maxperfetch = $post_options['maxperfetch'];
-        $showsocial = $post_options['showsocial'];
-        $overridedate = $post_options['overridedate'];
+        $showsocial = (isset($post_options['showsocial'])) ? $post_options['showsocial'] : false;
+        $overridedate = (isset($post_options['overridedate'])) ? $post_options['overridedate'] : false;
         $adjustImageSize = 1;
         $noFollow = 0;
         $floatType = 1;
@@ -262,32 +262,37 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
             $float = "none";
         }
 
-        for ($i = 1; $i <= $size; $i = $i + 1) {
+        $temp_keys = array_keys($option_items);
+        $valid_keys = array();
+        foreach($temp_keys as $temp_key)
+            if(strpos($temp_key, 'feed_name_') === 0)
+                $valid_keys[] = $temp_key;
+
+        $size = count($valid_keys);
+
+        for ($i = 1; $i <= $size; $i++) {
 
             //  condition here that id number is here
 
             $key = key($option_items);
             if (!strpos($key, '_') > 0) continue; //this makes sure only feeds are included here...everything else are options
 
-            $rssName = $option_items[$key];
+            $rssName = $option_items['feed_name_' . $i];
 
-            $rssID = str_replace('feed_name_', '', $key); //get feed ID number
+            $rssID = $i; //get feed ID number
 
-            next($option_items);
-
-            $key = key($option_items);
-
-            $rssURL = $option_items[$key];
+            $rssURL = $option_items['feed_url_' . $i];
 
 
             next($option_items);
             $key = key($option_items);
 
 
-            $rssCatID = $option_items[$key];
+            $rssCatID = $option_items['feed_cat_' . $i];
+            $blogCatID = (isset($option_items['feed_bcat_' . $i])) ? $option_items['feed_bcat_' . $i] : array();
 
 
-            if (((!in_array(0, $catArray) && in_array($option_items[$key], $catArray))) || in_array(0, $catArray) || $noExistCat == 1 || !EMPTY($feedIDArray)) { //makes sure only desired categories are included
+            if (((!in_array(0, $catArray) && in_array($rssCatID, $catArray))) || in_array(0, $catArray) || $noExistCat == 1 || !EMPTY($feedIDArray)) { //makes sure only desired categories are included
 
 
                 if (!EMPTY($feedIDArray)) { //only pick up specific feed arrary if indicated in querystring
@@ -397,7 +402,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                     $item = $feed->get_item($i);
                     if (empty($item)) continue;
 
-
+                    $mediaImage = false;
                     if ($enclosure = $item->get_enclosure()) {
 
                         if (!IS_NULL($item->get_enclosure()->get_thumbnail())) {
@@ -416,7 +421,14 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                     }
 
 
-                    $myarray[] = array("mystrdate" => strtotime($item->get_date()), "mytitle" => $item->get_title(), "mylink" => $item->get_permalink(), "myGroup" => $feeditem["FeedName"], "mydesc" => $item->get_content(), "myimage" => $mediaImage, "mycatid" => $feeditem["FeedCatID"], "myAuthor" => $itemAuthor);
+                    $myarray[] = array("mystrdate" => strtotime($item->get_date()),
+                        "mytitle" => $item->get_title(),
+                        "mylink" => $item->get_permalink(),
+                        "myGroup" => $feeditem["FeedName"],
+                        "mydesc" => $item->get_content(),
+                        "myimage" => $mediaImage,
+                        "mycatid" => $feeditem["FeedCatID"],
+                        "myAuthor" => $itemAuthor);
 
 
                     unset($mediaImage);
@@ -431,6 +443,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 //  CHECK $myarray BEFORE DOING ANYTHING ELSE //
 
         if ($dumpthis == 1) {
+            var_dump(__FILE__ .':'.  __LINE__);
             var_dump($myarray);
         }
         if (!isset($myarray) || empty($myarray)) {
@@ -472,7 +485,8 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
         foreach ($myarray as $items) {
 
             $total = $total + 1;
-            if ($total > $maxperfetch) break;
+            if ($total > $maxperfetch)
+                break;
             $thisLink = trim($items["mylink"]);
 
 
@@ -542,9 +556,17 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
                 $catkey = array_search($mycatid, $post_options['categoryid']['plugcatid']);
 
-                $blogcatid = array($post_options['categoryid']['wpcatid'][$catkey]);
 
-                $post['post_category'] = $blogcatid;
+                $blogcatid_to_add = array();
+                if(isset($post_options['categoryid']['wpcatid'][$catkey]))
+                    $blogcatid_to_add[] = $post_options['categoryid']['wpcatid'][$catkey];
+
+                foreach($blogCatID as $cat_id)
+                    if(!in_array($cat_id, $blogcatid_to_add))
+                        $blogcatid_to_add[] = $cat_id;
+
+                //$post['post_category'] is OBSOLET
+                $blogcatid_to_add;
 
 
                 if (is_null($bloguserid) || empty($bloguserid)) {
@@ -565,31 +587,36 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                     $post['tags_input'] = $postTags;
                 }
 
-//exit;
+                /// AQUI ADICIONAR A CATEGORIA
 
-                $post_id = wp_insert_post($post);
+                if(!get_option('rss_import_' . $thisLink)) {
+                    //var_dump('rss_import_' . $thisLink);
+                    $post_id = wp_insert_post($post);
 
-                if (add_post_meta($post_id, 'rssmi_source_link', $thisLink) != false) {
+                    wp_set_post_categories($post_id, $blogcatid_to_add);
 
+                    add_option('rss_import_' . $thisLink, date('Y-m-d H:i:s'), '', 'no');
 
-                    if ($setFeaturedImage == 1 || $setFeaturedImage == 2) {
-                        global $featuredImage;
-                        if (isset($featuredImage)) {
-                            $featuredImageTitle = trim($items["mytitle"]);
-                            setFeaturedImage($post_id, $featuredImage, $featuredImageTitle);
-                            unset($featuredImage);
+                    if (add_post_meta($post_id, 'rssmi_source_link', $thisLink) != false) {
+                        if ($setFeaturedImage == 1 || $setFeaturedImage == 2) {
+                            global $featuredImage;
+                            if (isset($featuredImage)) {
+                                $featuredImageTitle = trim($items["mytitle"]);
+                                setFeaturedImage($post_id, $featuredImage, $featuredImageTitle);
+                                unset($featuredImage);
+                            }
                         }
+
+                    } else {
+
+                        wp_delete_post($post_id);
+                        unset($post);
+                        continue;
+
+
                     }
 
-                } else {
-
-                    wp_delete_post($post_id);
-                    unset($post);
-                    continue;
-
-
                 }
-
                 unset($post);
             }
 

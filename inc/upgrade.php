@@ -8,7 +8,7 @@ function upgrade_db()
 
     $myoptions = get_option('rss_import_items');
     $newoptions = get_option('rss_import_options');
-    $plugin_version = $newoptions['plugin_version'];
+    $plugin_version = (isset($newoptions['plugin_version'])) ? $newoptions['plugin_version'] : '';
     $categoryoptions = get_option('rss_import_categories_images');
 
     if (!empty($myoptions) && empty($newoptions)) { // this transfers data to new table if upgrading
@@ -59,8 +59,12 @@ function upgrade_db()
             $post_settings[$key] = $value;
         }
 
-        $post_settings['categoryid']['plugcatid'][1] = $post_options['category'];
-        $post_settings['categoryid']['wpcatid'][1] = $post_options['wpcategory'];
+        if(isset($post_options['category']))
+            $post_settings['categoryid']['plugcatid'][1] = $post_options['category'];
+
+        if(isset($post_options['wpcategory']))
+            $post_settings['categoryid']['wpcatid'][1] = $post_options['wpcategory'];
+
         update_option('rss_post_options', $post_settings);
     }
 

@@ -193,7 +193,8 @@ function CleanHTML($content)
     preg_match_all('#<table.*?><tr><td>(.*?)<\/td><\/tr><\/table>#', $content, $matches); //get all tables
 
     foreach ($matches as $match) {
-
+        if(!count($match))
+            continue;
         if ($match[1] == '') {
 
             $content = str_replace($match[0], '', $content); //clean empty tables
@@ -203,6 +204,8 @@ function CleanHTML($content)
     preg_match_all('#<div.*?>(.*?)<\/div>#', $content, $matches); //get all divs - still needs work
 
     foreach ($matches as $match) {
+        if(!count($match))
+            continue;
 
         if ($match[1] == '') {
 
@@ -409,15 +412,16 @@ function remove_img_hw($imghtml)
 function resize_image($imghtml)
 {
     global $maximgwidth;
+
     global $ftp;
     $imghtml = preg_replace('/style=\"[^\"]*\"/', '', $imghtml); //get rid of inline style
     if (preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $imghtml, $matches)) {
         if (!empty($matches[1]) && verifyimage($matches[1])) {
             $thisWidth = getimagesize($matches[1]);
 
-            if ($ftp == 1 && $maxImgWidth == 999) {
+            if ($ftp == 1 && $maximgwidth == 999) {
                 return str_replace("<img", "<img", remove_img_hw($imghtml));
-            } else if ($thisWidth > $maxImgWidth) {
+            } else if ($thisWidth > $maximgwidth) {
                 return str_replace("<img", "<img width=" . $maximgwidth, remove_img_hw($imghtml));
             } else {
                 return str_replace("<img", "<img width=" . $thisWidth, remove_img_hw($imghtml));

@@ -834,111 +834,111 @@ function wp_rss_multi_importer_items_page()
                         }
                     }
 
-
                     if (!empty($options)) {
 
-                        $size = count($options);
+                        $temp_keys = array_keys($options);
+                        $valid_keys = array();
+                        foreach($temp_keys as $temp_key)
+                            if(strpos($temp_key, 'feed_name_') === 0)
+                                $valid_keys[] = $temp_key;
+
+                        $size = count($valid_keys);
+
+                        $catOptions = get_option('rss_import_categories');
+                        $bcatOptions = get_terms('category', array('hide_empty' => false));
 
                         for ($i = 1; $i <= $size; $i++) {
-
-                            //if( $i % $modnumber == 0 ) continue;
-
-
                             $key = key($options);
+                            if (!strpos($key, '_') > 0)
+                                continue; //this makes sure only feeds are included here...everything else are options
+
+                            $j = $i; //wprss_get_id_number($key);
+?>
+<div class='wprss-input' id='feed_<?php echo $j; ?>'>
+    <p>
+        <label class='textinput' for='<?php echo $key; ?>'>
+            Feed #<?php echo $j; ?>
+        </label>
+        <input  class='wprss-input' size='75' name='rss_import_items[feed_name_<?php echo $j; ?>]'
+                id="feed_name_<?php echo $j; ?>" type='text' value='<?php echo $options['feed_name_'.$j]; ?>' />
+    </p>
+    <p>
+        <label class='textinput' for='feed_url_<?php echo $j; ?>'>URL #<?php echo $j; ?></label>
+
+        <input id='feed_url_<?php echo $j; ?>' class='wprss-input' size='75' name='rss_import_items[feed_url_<?php echo $j; ?>]'
+           type='text' value='<?php echo esc_url($options['feed_url_'. $j]); ?>' />
+    </p>
+<?php if (empty($catOptions)) { ?>
+            <input id='feed_cat_<?php echo $j; ?>' class='wprss-input' size='10' name='rss_import_items[feed_cat_<?php echo $j; ?>]' type='hidden' value='0' />
+<?php
+    } else {
+        if (!empty($catOptions)) {
+?>
+    <p>
+        <label class='textinput'>Plugin Category:</label>
+            <SELECT NAME="rss_import_items[feed_cat_<?php echo $j; ?>]" id='feed_cat_<?php echo $j; ?>'>
+                <OPTION VALUE='0'>NONE</OPTION>
+<?php
+                $catsize = count($catOptions);
+                reset($catOptions);
+                for ($k = 1; $k <= $catsize; $k++) {
+                    if ($k % 2 == 0) continue;
+
+                    $catkey = key($catOptions);
+                    $nameValue = $catOptions[$catkey];
+                    next($catOptions);
+                    $catkey = key($catOptions);
+                    $IDValue = $catOptions[$catkey];
 
 
-                            if (!strpos($key, '_') > 0) continue; //this makes sure only feeds are included here...everything else are options
+                    if ($options['feed_cat_'.$j] == $IDValue) {
+                        $sel = 'selected  ';
 
-                            $j = wprss_get_id_number($key);
+                    } else {
+                        $sel = '';
 
+                    }
+                    ?>
+                    <OPTION <?php echo $sel; ?> VALUE="<?php echo $IDValue; ?>"><?php echo $nameValue; ?></OPTION>
+                    <?php
+                    next($catOptions);
 
-                            echo "<div class='wprss-input' id='$j'>";
-
-                            echo "<p><label class='textinput' for='$key'>" . wprssmi_convert_key($key) . "</label>
-
-               <input  class='wprss-input' size='75' name='rss_import_items[$key]' type='text' value='$options[$key]' />  <a href='javascript:void(0)' class='btnDelete' id='$j'><img src='$removeurl'/></a></p>";
-
-
-                            next($options);
-
-
-                            $key = key($options);
-
-                            $url_esc = esc_url($options[$key]);
-                            echo "<p><label class='textinput' for='$key'>" . wprssmi_convert_key($key) . "</label>
-
-               <input id='$j' class='wprss-input' size='75' name='rss_import_items[$key]' type='text' value='$url_esc' />";
-
-
-                            if (empty($catOptions_exist)) {
-                                echo " <input id='$j' class='wprss-input' size='10' name='rss_import_items[feed_cat_$j]' type='hidden' value='0' />";
-
-                            }
-
-
-                            if ($catExists == 1) {
-                                next($options);
-                                $key = key($options);
-                                $selectName = "rss_import_items[feed_cat_$j]";
-                            } else {
-                                $selectName = "rss_import_items[feed_cat_$j]";
-                            }
-
-
-                            $catOptions = get_option('rss_import_categories');
-
-                            if (!empty($catOptions)) {
-                                echo "<span class=category_list>Category ";
-                                echo "<SELECT NAME=" . $selectName . " id='feed_cat'>";
-                                echo "<OPTION VALUE='0'>NONE</OPTION>";
-                                $catsize = count($catOptions);
-
-
-                                for ($k = 1; $k <= $catsize; $k++) {
-
-                                    if ($k % 2 == 0) continue;
-
-                                    $catkey = key($catOptions);
-                                    $nameValue = $catOptions[$catkey];
-                                    next($catOptions);
-                                    $catkey = key($catOptions);
-                                    $IDValue = $catOptions[$catkey];
-
-
-                                    if ($options[$key] == $IDValue) {
-                                        $sel = 'selected  ';
-
-                                    } else {
-                                        $sel = '';
-
-                                    }
-
-                                    echo "<OPTION " . $sel . "VALUE=" . $IDValue . ">" . $nameValue . "</OPTION>";
-                                    next($catOptions);
-
-                                }
-                                echo "</SELECT></span>";
-                            }
-//echo check_feed($url_esc);  // needs style
-
-                            echo " </p>";
-
-
-                            next($options);
-
-                            echo "</div>";
-
-
+                }
+?>
+            </SELECT>
+        </p>
+<?php
+        }
+?>
+                                <p>
+                                    <label class='textinput'>Blog Category:</label>
+                                    <SELECT NAME="rss_import_items[feed_bcat_<?php echo $j; ?>][]" id='feed_bcat_<?php echo $j; ?>' multiple="multiple">
+                                        <OPTION VALUE='0'>NONE</OPTION>
+                                        <?php
+                                        if(!isset($options['feed_bcat_'.$j]) || $options['feed_bcat_'.$j] == '')
+                                            $options['feed_bcat_'.$j] = array();
+                                        foreach ($bcatOptions as $term) {
+                                            if (in_array($term->term_id, $options['feed_bcat_'.$j])) {
+                                                $sel = 'selected  ';
+                                            } else {
+                                                $sel = '';
+                                            }
+                                            ?>
+                                            <OPTION <?php echo $sel; ?> VALUE="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></OPTION>
+                                            <?php
+                                        }
+                                        ?>
+                                    </SELECT>
+                                </p>
+        <p>
+            <a href='javascript:void(0)' class='btnDelete' id='feed_<?php echo $j; ?>'><img src='<?php echo $removeurl; ?>'/></a>
+        </p>
+    </div>
+<?php
+    }
                         }
 
                     }
-
-
-
-
-
-
-
                     ?>
 
                     <div id="buttons"><a href="javascript:void(0)" id="add" class="addbutton"><img
@@ -1167,12 +1167,12 @@ function wp_rss_multi_importer_post_page()
     <p><label class='o_textinput' for='active'><?php _e("Check to Activate this Feature", 'wp-rss-multi-importer')?>
             <input type="checkbox" Name="rss_post_options[active]" Value="1" <?php if ($post_options['active'] == 1) {
                 echo 'checked="checked"';
-            } ?></label><?php if ($post_options['active'] != 1) {
+            } ?></label><?php if( isset($post_options['active']) && $post_options['active'] != 1) {
             echo "   <span style=\"color:red\">This feature is not active</span>";
         }?>
     </p>
     <?php
-    if ($post_options['active'] == 1) {
+    if (isset($post_options['active']) && $post_options['active'] == 1) {
         wp_rss_multi_deactivation();
         wp_rss_multi_activation();
     } else {
@@ -1265,23 +1265,23 @@ function wp_rss_multi_importer_post_page()
         </SELECT></p>
 
 
-    <p><label class='o_textinput' for='bloguserid'><?php _e("Post to blog user_id", 'wp-rss-multi-importer')?>   <input
-                id='bloguserid' type="text" size='2' maxlength='3' Name="rss_post_options[bloguserid]"
-                Value="<?php echo $post_options['bloguserid'] ?>">(if left blank, the admin will be the user)</label>
+    <p><label class='o_textinput' for='rss_post_options_bloguserid'><?php _e("Post to blog user_id", 'wp-rss-multi-importer')?>   <input
+                id='bloguserid' type="text" size='2' maxlength='3' name="rss_post_options[bloguserid]" id="rss_post_options_bloguserid"
+                Value="<?php if(isset($post_options['bloguserid'])) echo $post_options['bloguserid'] ?>">(if left blank, the admin will be the user)</label>
     </p>
 
     <p><label class='o_textinput'
-              for='overridedate'><?php _e("Check to over-ride the posts date/time with the current date and time.", 'wp-rss-multi-importer')?>
-            <input type="checkbox" Name="rss_post_options[overridedate]"
-                   Value="1" <?php if ($post_options['overridedate'] == 1) {
+              for='rss_post_options_overridedate'><?php _e("Check to over-ride the posts date/time with the current date and time.", 'wp-rss-multi-importer')?>
+            <input type="checkbox" name="rss_post_options[overridedate]" id="rss_post_options_overridedate"
+                   Value="1" <?php if(isset($post_options['overridedate'])) if ($post_options['overridedate'] == 1) {
                 echo 'checked="checked"';
             } ?></label>
     </p>
 
     <p><label class='o_textinput'
-              for='showsocial'><?php _e("Add social icons (Twitter and Facebook) to each post. ", 'wp-rss-multi-importer')?>
-            <input type="checkbox" Name="rss_post_options[showsocial]"
-                   Value="1" <?php if ($post_options['showsocial'] == 1) {
+              for='rss_post_options_showsocial'><?php _e("Add social icons (Twitter and Facebook) to each post. ", 'wp-rss-multi-importer')?>
+            <input type="checkbox" name="rss_post_options[showsocial]" id="rss_post_options_showsocial"
+                   Value="1" <?php if(isset($post_options['showsocial'])) if ($post_options['showsocial'] == 1) {
                 echo 'checked="checked"';
             } ?></label>
     </p>
@@ -1574,7 +1574,7 @@ function wp_rss_multi_importer_post_page()
 
 
 
-    if ($post_options['categoryid']['wpcatid'][$q] <> '' || $q == 1) {
+    if ((isset($post_options['categoryid']) && $post_options['categoryid']['wpcatid'][$q] <> '') || $q == 1) {
         echo "<div class='category_id_options' id='$q'>";
         $selclear = 0; // added
     } else {
@@ -1583,66 +1583,58 @@ function wp_rss_multi_importer_post_page()
     }
     ?>
 
-    <p><span class="ftpost_l"><SELECT NAME="rss_post_options[categoryid][plugcatid][<?php echo $q ?>]">
-                <?php if ($selclear == 1) { // added
-                    ?>
+    <p>
+        <span class="ftpost_l">
+            <SELECT NAME="rss_post_options[categoryid][plugcatid][<?php echo $q ?>]">
+                <?php if ($selclear == 1): ?>
                     <OPTION selected VALUE=''>None</OPTION>
-                <?php
-                }
-                ?>
-
+                <?php endif; ?>
                 <OPTION VALUE='0'>All</OPTION>
                 <?php
+                    for ($k = 1; $k <= $catsize; $k++) {
+                        if ($k % 2 == 0)
+                            continue;
+
+                        $catkey = key($catOptions);
+                        $nameValue = $catOptions[$catkey];
+
+                        next($catOptions);
+
+                        $catkey = key($catOptions);
+                        $IDValue = $catOptions[$catkey];
 
 
+                        if ($post_options['categoryid']['plugcatid'][$q] == $IDValue && $selclear == 0) { // selclear added
+                            $sel = 'selected  ';
+                        } else {
+                            $sel = '';
+                        }
 
-
-                for ($k = 1; $k <= $catsize; $k++) {
-
-                    if ($k % 2 == 0) continue;
-
-                    $catkey = key($catOptions);
-                    $nameValue = $catOptions[$catkey];
-                    next($catOptions);
-                    $catkey = key($catOptions);
-                    $IDValue = $catOptions[$catkey];
-
-
-                    if ($post_options['categoryid']['plugcatid'][$q] == $IDValue && $selclear == 0) { // selclear added
-                        $sel = 'selected  ';
-
-                    } else {
-                        $sel = '';
-
+                        echo "<OPTION " . $sel . "VALUE=" . $IDValue . ">" . $nameValue . "</OPTION>";
+                        next($catOptions);
                     }
-
-                    echo "<OPTION " . $sel . "VALUE=" . $IDValue . ">" . $nameValue . "</OPTION>";
-                    next($catOptions);
-
-                }
-                echo "</SELECT></span><span class='ftpost_r'>";
-                echo "<input id='wpcategory' type='text' name='rss_post_options[categoryid][wpcatid][$q]' size='5' maxlength='5' value=" . $post_options['categoryid']['wpcatid'][$q] . " ></span></p></div>";
+                ?>
+            </SELECT>
+        </span>
+        <span class='ftpost_r'>
+            <?php
+                $cat_value = (isset($post_options['categoryid'])) ? $post_options['categoryid']['wpcatid'][$q] : '';
+                echo "<input id='wpcategory' type='text' name='rss_post_options[categoryid][wpcatid][$q]' size='5' maxlength='5' value=" . $cat_value . " >";
                 reset($catOptions);
 
                 }
 
                 echo "<a href='javascript:void(0)' class='add_cat_id'>Add another category</a>";
 
-
-
-
-
-
-
-
                 }else {
 
                     echo __("<b>NOTE: If you set up categories (in Category Options) you can restrict only feeds in that category to go into blog posts.</b> ", 'wp-rss-multi-importer');
                 }
 
-                ?>
-
-
+            ?>
+        </span>
+    </p>
+    </div>
     </div>
     </div>
 

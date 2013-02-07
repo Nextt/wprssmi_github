@@ -43,7 +43,7 @@ function wp_rss_multi_importer_post_to_feed()
 {
     $post_options = get_option('rss_post_options');
     if (!empty($post_options)) {
-        if ($post_options['targetWindow'] == 0 && $post_options['active'] == 1) {
+        if (isset($post_options['targetWindow']) && isset($post_options['active']) && $post_options['targetWindow'] == 0 && $post_options['active'] == 1) {
             add_action('wp_footer', 'colorbox_scripts');
         }
     }
