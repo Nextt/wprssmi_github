@@ -854,10 +854,11 @@ function wp_rss_multi_importer_items_page()
 
                             $j = $i; //wprss_get_id_number($key);
 ?>
+
 <div class='wprss-input' id='feed_<?php echo $j; ?>'>
     <p>
         <label class='textinput' for='<?php echo $key; ?>'>
-            Feed #<?php echo $j; ?>
+            Feed #<?php echo $j; ?>&nbsp;
         </label>
         <input  class='wprss-input' size='75' name='rss_import_items[feed_name_<?php echo $j; ?>]'
                 id="feed_name_<?php echo $j; ?>" type='text' value='<?php echo $options['feed_name_'.$j]; ?>' />
@@ -869,15 +870,15 @@ function wp_rss_multi_importer_items_page()
            type='text' value='<?php echo esc_url($options['feed_url_'. $j]); ?>' />
     </p>
 <?php if (empty($catOptions)) { ?>
-            <input id='feed_cat_<?php echo $j; ?>' class='wprss-input' size='10' name='rss_import_items[feed_cat_<?php echo $j; ?>]' type='hidden' value='0' />
+    <input id='feed_cat_<?php echo $j; ?>' class='wprss-input' size='10' name='rss_import_items[feed_cat_<?php echo $j; ?>]' type='hidden' value='0' />
 <?php
     } else {
         if (!empty($catOptions)) {
 ?>
     <p>
         <label class='textinput'>Plugin Category:</label>
-            <SELECT NAME="rss_import_items[feed_cat_<?php echo $j; ?>]" id='feed_cat_<?php echo $j; ?>'>
-                <OPTION VALUE='0'>NONE</OPTION>
+        <SELECT NAME="rss_import_items[feed_cat_<?php echo $j; ?>]" id='feed_cat_<?php echo $j; ?>'>
+            <OPTION VALUE='0'>NONE</OPTION>
 <?php
                 $catsize = count($catOptions);
                 reset($catOptions);
@@ -898,42 +899,44 @@ function wp_rss_multi_importer_items_page()
                         $sel = '';
 
                     }
-                    ?>
-                    <OPTION <?php echo $sel; ?> VALUE="<?php echo $IDValue; ?>"><?php echo $nameValue; ?></OPTION>
-                    <?php
+?>
+            <OPTION <?php echo $sel; ?> VALUE="<?php echo $IDValue; ?>"><?php echo $nameValue; ?></OPTION>
+<?php
                     next($catOptions);
 
                 }
 ?>
-            </SELECT>
-        </p>
+        </SELECT>
+    </p>
 <?php
         }
 ?>
-                                <p>
-                                    <label class='textinput'>Blog Category:</label>
-                                    <SELECT NAME="rss_import_items[feed_bcat_<?php echo $j; ?>][]" id='feed_bcat_<?php echo $j; ?>' multiple="multiple">
-                                        <OPTION VALUE='0'>NONE</OPTION>
-                                        <?php
-                                        if(!isset($options['feed_bcat_'.$j]) || $options['feed_bcat_'.$j] == '')
-                                            $options['feed_bcat_'.$j] = array();
-                                        foreach ($bcatOptions as $term) {
-                                            if (in_array($term->term_id, $options['feed_bcat_'.$j])) {
-                                                $sel = 'selected  ';
-                                            } else {
-                                                $sel = '';
-                                            }
-                                            ?>
-                                            <OPTION <?php echo $sel; ?> VALUE="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></OPTION>
-                                            <?php
-                                        }
-                                        ?>
-                                    </SELECT>
-                                </p>
-        <p>
-            <a href='javascript:void(0)' class='btnDelete' id='feed_<?php echo $j; ?>'><img src='<?php echo $removeurl; ?>'/></a>
-        </p>
-    </div>
+    <p>
+        <label class='textinput'>Blog Category:</label>
+        <SELECT NAME="rss_import_items[feed_bcat_<?php echo $j; ?>][]" id='feed_bcat_<?php echo $j; ?>' multiple="multiple">
+            <OPTION VALUE='0'>NONE</OPTION>
+<?php
+            if(!isset($options['feed_bcat_'.$j]) || $options['feed_bcat_'.$j] == '')
+                $options['feed_bcat_'.$j] = array();
+            foreach ($bcatOptions as $term) {
+                if (in_array($term->term_id, $options['feed_bcat_'.$j])) {
+                    $sel = ' selected="selected"';
+                } else {
+                    $sel = '';
+                }
+?>
+            <OPTION VALUE="<?php echo $term->term_id; ?>"<?php echo $sel; ?>><?php echo $term->name; ?></OPTION>
+<?php
+            }
+            ?>
+        </SELECT>
+    </p>
+    <p>
+        <a href='javascript:void(0)' class='btnDelete' id='feed_<?php echo $j; ?>'>
+            <img src='<?php echo $removeurl; ?>'/>
+        </a>
+    </p>
+</div>
 <?php
     }
                         }

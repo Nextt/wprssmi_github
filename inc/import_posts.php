@@ -288,7 +288,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
             $key = key($option_items);
 
 
-            $rssCatID = $option_items['feed_cat_' . $i];
+            $rssCatID = (isset($option_items['feed_cat_' . $i])) ? $option_items['feed_cat_' . $i] : false;
             $blogCatID = (isset($option_items['feed_bcat_' . $i])) ? $option_items['feed_bcat_' . $i] : array();
 
 
@@ -322,26 +322,28 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
         if ($maxposts == "") return "One more step...go into the the <a href='/wp-admin/options-general.php?page=wp_rss_multi_importer_admin&tab=setting_options'>Settings Panel and choose Options.</a>"; // check to confirm they set options
 
         if (empty($myfeeds)) {
-
+            global $cat_options_url;
             return "You've either entered a category ID that doesn't exist or have no feeds configured for this category.  Edit the shortcode on this page with a category ID that exists, or <a href=" . $cat_options_url . ">go here and and get an ID</a> that does exist in your admin panel.";
             exit;
         }
 
 
-        foreach ($myfeeds as $feeditem) {
+        foreach ($myfeeds as $feedInformation) {
+            if(!$feedInformation)
+                continue;
 
 
-            $url = (string)($feeditem["FeedURL"]);
+            $url = (string)($feedInformation["FeedURL"]);
 
 
             while (stristr($url, 'http') != $url)
                 $url = substr($url, 1);
 
 
-            $feed = fetch_feed($url);
+            $feedFetchResults = fetch_feed($url);
 
 
-            if (is_wp_error($feed)) {
+            if (is_wp_error($feedFetchResults)) {
 
                 if ($size < 4) {
                     return "You have one feed and it's not valid.  This is likely a problem with the source of the RSS feed.  Contact our support forum for help.";
@@ -353,11 +355,11 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                 }
             }
 
-            $maxfeed = $feed->get_item_quantity(0);
+            $feedFetchSize = $feedFetchResults->get_item_quantity(0);
 
 
-            if ($feedAuthor = $feed->get_author()) {
-                $feedAuthor = $feed->get_author()->get_name();
+            if ($feedAuthor = $feedFetchResults->get_author()) {
+                $feedAuthor = $feedFetchResults->get_author()->get_name();
             }
 
 
@@ -365,31 +367,31 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
             if ($sortDir == 1) {
 
-                for ($i = $maxfeed - 1; $i >= $maxfeed - $maxposts; $i--) {
-                    $item = $feed->get_item($i);
-                    if (empty($item)) continue;
+                for ($i = $feedFetchSize - 1; $i >= $feedFetchSize - $maxposts; $i--) {
+                    $feedItem = $feedFetchResults->get_item($i);
+                    if (empty($feedItem))
+                        continue;
 
-                    if (exclude_post($feeditem["FeedCatID"], $item->get_content()) == True) continue; // FILTER
+                    if (exclude_post($feedInformation["FeedCatID"], $feedItem->get_content()) == True) continue; // FILTER
 
 
-                    if ($enclosure = $item->get_enclosure()) {
-                        if (!IS_NULL($item->get_enclosure()->get_thumbnail())) {
-                            $mediaImage = $item->get_enclosure()->get_thumbnail();
-                        } else if (!IS_NULL($item->get_enclosure()->get_link())) {
-                            $mediaImage = $item->get_enclosure()->get_link();
+                    if ($enclosure = $feedItem->get_enclosure()) {
+                        if (!IS_NULL($feedItem->get_enclosure()->get_thumbnail())) {
+                            $mediaImage = $feedItem->get_enclosure()->get_thumbnail();
+                        } else if (!IS_NULL($feedItem->get_enclosure()->get_link())) {
+                            $mediaImage = $feedItem->get_enclosure()->get_link();
                         }
                     }
 
 
-                    if ($itemAuthor = $item->get_author()) {
-                        $itemAuthor = $item->get_author()->get_name();
+                    if ($itemAuthor = $feedItem->get_author()) {
+                        $itemAuthor = $feedItem->get_author()->get_name();
                     } else if (!IS_NULL($feedAuthor)) {
                         $itemAuthor = $feedAuthor;
-
                     }
 
 
-                    $myarray[] = array("mystrdate" => strtotime($item->get_date()), "mytitle" => $item->get_title(), "mylink" => $item->get_permalink(), "myGroup" => $feeditem["FeedName"], "mydesc" => $item->get_content(), "myimage" => $mediaImage, "mycatid" => $feeditem["FeedCatID"], "myAuthor" => $itemAuthor);
+                    $myarray[] = array("mystrdate" => strtotime($feedItem->get_date()), "mytitle" => $feedItem->get_title(), "mylink" => $feedItem->get_permalink(), "myGroup" => $feedInformation["FeedName"], "mydesc" => $feedItem->get_content(), "myimage" => $mediaImage, "mycatid" => $feedInformation["FeedCatID"], "myAuthor" => $itemAuthor);
 
                     unset($mediaImage);
                     unset($itemAuthor);
@@ -399,36 +401,41 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
             } else {
 
                 for ($i = 0; $i <= $maxposts - 1; $i++) {
-                    $item = $feed->get_item($i);
-                    if (empty($item)) continue;
+                    $feedItem = $feedFetchResults->get_item($i);
+                    if (empty($feedItem)) continue;
 
                     $mediaImage = false;
-                    if ($enclosure = $item->get_enclosure()) {
+                    if ($enclosure = $feedItem->get_enclosure()) {
 
-                        if (!IS_NULL($item->get_enclosure()->get_thumbnail())) {
-                            $mediaImage = $item->get_enclosure()->get_thumbnail();
-                        } else if (!IS_NULL($item->get_enclosure()->get_link())) {
-                            $mediaImage = $item->get_enclosure()->get_link();
+                        if (!IS_NULL($feedItem->get_enclosure()->get_thumbnail())) {
+                            $mediaImage = $feedItem->get_enclosure()->get_thumbnail();
+                        } else if (!IS_NULL($feedItem->get_enclosure()->get_link())) {
+                            $mediaImage = $feedItem->get_enclosure()->get_link();
                         }
                     }
 
 
-                    if ($itemAuthor = $item->get_author()) {
-                        $itemAuthor = $item->get_author()->get_name();
+                    if ($itemAuthor = $feedItem->get_author()) {
+                        $itemAuthor = $feedItem->get_author()->get_name();
                     } else if (!IS_NULL($feedAuthor)) {
                         $itemAuthor = $feedAuthor;
 
                     }
 
-
-                    $myarray[] = array("mystrdate" => strtotime($item->get_date()),
-                        "mytitle" => $item->get_title(),
-                        "mylink" => $item->get_permalink(),
-                        "myGroup" => $feeditem["FeedName"],
-                        "mydesc" => $item->get_content(),
+                    $new_item = array("mystrdate" => strtotime($feedItem->get_date()),
+                        "mytitle" => $feedItem->get_title(),
+                        "mylink" => $feedItem->get_permalink(),
+                        "myGroup" => $feedInformation["FeedName"],
+                        "mydesc" => $feedItem->get_content(),
                         "myimage" => $mediaImage,
-                        "mycatid" => $feeditem["FeedCatID"],
+                        "mycatid" => $feedInformation["FeedCatID"],
                         "myAuthor" => $itemAuthor);
+
+                    $new_item = apply_filters('feed-item-post-rss', $new_item, $feedInformation, $feedItem);
+
+                    if(!$new_item)
+                        continue;
+                    $myarray[] = $new_item;
 
 
                     unset($mediaImage);
@@ -589,31 +596,34 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
                 /// AQUI ADICIONAR A CATEGORIA
 
-                if(!get_option('rss_import_' . $thisLink)) {
-                    //var_dump('rss_import_' . $thisLink);
-                    $post_id = wp_insert_post($post);
+                if(!get_option('rss_import_' . md5($thisLink))) {
+                    $post_to_insert = apply_filters('pre-insert-post-rss', $post);
 
-                    wp_set_post_categories($post_id, $blogcatid_to_add);
+                    if($post_to_insert) {
+                        $post_id = wp_insert_post($post_to_insert);
 
-                    add_option('rss_import_' . $thisLink, date('Y-m-d H:i:s'), '', 'no');
+                        wp_set_post_categories($post_id, $blogcatid_to_add);
 
-                    if (add_post_meta($post_id, 'rssmi_source_link', $thisLink) != false) {
-                        if ($setFeaturedImage == 1 || $setFeaturedImage == 2) {
-                            global $featuredImage;
-                            if (isset($featuredImage)) {
-                                $featuredImageTitle = trim($items["mytitle"]);
-                                setFeaturedImage($post_id, $featuredImage, $featuredImageTitle);
-                                unset($featuredImage);
+                        add_option('rss_import_' . md5($thisLink), date('Y-m-d H:i:s'), '', 'no');
+
+                        if (add_post_meta($post_id, 'rssmi_source_link', $thisLink) != false) {
+                            if ($setFeaturedImage == 1 || $setFeaturedImage == 2) {
+                                global $featuredImage;
+                                if (isset($featuredImage)) {
+                                    $featuredImageTitle = trim($items["mytitle"]);
+                                    setFeaturedImage($post_id, $featuredImage, $featuredImageTitle);
+                                    unset($featuredImage);
+                                }
                             }
+
+                        } else {
+
+                            wp_delete_post($post_id);
+                            unset($post);
+                            continue;
+
+
                         }
-
-                    } else {
-
-                        wp_delete_post($post_id);
-                        unset($post);
-                        continue;
-
-
                     }
 
                 }
