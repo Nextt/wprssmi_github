@@ -429,6 +429,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                         "mydesc" => $feedItem->get_content(),
                         "myimage" => $mediaImage,
                         "mycatid" => $feedInformation["FeedCatID"],
+						"post_type" => 'post_type',
                         "myAuthor" => $itemAuthor);
 
                     $new_item = apply_filters('feed-item-post-rss', $new_item, $feedInformation, $feedItem);
@@ -523,6 +524,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
                 $thisContent = '';
                 $post = array();
+				$post['post_type'] = $items['post_type'];
                 $post['post_status'] = $post_status;
 
 

@@ -910,6 +910,7 @@ function wp_rss_multi_importer_items_page()
     </p>
 <?php
         }
+	}
 ?>
     <p>
         <label class='textinput'>Blog Category:</label>
@@ -938,7 +939,6 @@ function wp_rss_multi_importer_items_page()
     </p>
 </div>
 <?php
-    }
                         }
 
                     }
@@ -1444,14 +1444,14 @@ function wp_rss_multi_importer_post_page()
     <p><label class='o_textinput'
               for='addAuthor'><?php _e("Show Feed or Author Name (if available)", 'wp-rss-multi-importer')?>   <input
                 type="checkbox" Name="rss_post_options[addAuthor]"
-                Value="1" <?php if ($post_options['addAuthor'] == 1) {
+                Value="1" <?php if (isset($post_options['addAuthor']) && ($post_options['addAuthor'] == 1)) {
                 echo 'checked="checked"';
             } ?></label></p>
 
 
     <p><label class='o_textinput' for='addSource'><?php _e("Show Feed Source", 'wp-rss-multi-importer')?>   <input
                 type="checkbox" Name="rss_post_options[addSource]"
-                Value="1" <?php if ($post_options['addSource'] == 1) {
+                Value="1" <?php if (isset($post_options['addSource']) && ($post_options['addSource'] == 1)) {
                 echo 'checked="checked"';
             } ?></label></p>
 
@@ -1485,7 +1485,7 @@ function wp_rss_multi_importer_post_page()
 	<p><label class='o_textinput'
               for='stripSome'><?php _e("Preserve limited tags (p,strong,b,br,i,em,li,ul,pre,code,sup,sub,u,h2,h3,h4)   ", 'wp-rss-multi-importer')?>
             <input type="checkbox" Name="rss_post_options[stripSome]"
-                   Value="1" <?php if ($post_options['stripSome'] == 1) {
+                   Value="1" <?php if (isset($post_options['stripSome']) && ($post_options['stripSome'] == 1)) {
                 echo 'checked="checked"';
             } ?></label> (leave unchecked for all html to be preserved)</p>
 
