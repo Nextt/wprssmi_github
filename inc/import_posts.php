@@ -214,8 +214,10 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
         global $RSSdefaultImage;
         $RSSdefaultImage = $post_options['RSSdefaultImage']; // 0- process normally, 1=use default for category, 2=replace when no image available
 
-
-        $wpcatids = array_filter($post_options['categoryid']['wpcatid'], 'filter_id_callback');
+		$wpcatids = array();
+		if(isset($post_options['categoryid']))
+			if(isset($post_options['categoryid']['wpcatid']))
+       			$wpcatids = array_filter($post_options['categoryid']['wpcatid'], 'filter_id_callback');
 
 
         if (!empty($wpcatids)) {
