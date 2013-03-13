@@ -23,7 +23,7 @@ function rssmi_rss()
             $wp_rewrite = new WP_Rewrite();
             $wp_rewrite->flush_rules();}
     */
-    if (!empty($feed_options)) {
+    if (!empty($feed_options) && !empty($feed_options['feedslug']) ) {
 
         add_feed($feed_options['feedslug'], 'rssmi_feed');
 
