@@ -564,6 +564,10 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
                 $mycatid = $items["mycatid"];
 
+				if(!isset($post_options['categoryid']))
+					$post_options['categoryid'] = array();
+				if(!isset($post_options['categoryid']['plugcatid']))
+					$post_options['categoryid']['plugcatid'] = array();
 
                 $catkey = array_search($mycatid, $post_options['categoryid']['plugcatid']);
 
