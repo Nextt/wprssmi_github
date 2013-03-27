@@ -307,7 +307,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                 }
 
 
-                $myfeeds[] = array("FeedName" => $rssName, "FeedURL" => $rssURL, "FeedCatID" => $rssCatID); //with Feed Category ID
+                $myfeeds[] = array("FeedName" => $rssName, "FeedURL" => $rssURL, "FeedCatID" => $rssCatID, "BlogCatID" => $blogCatID); //with Feed Category ID
 
 
             }
@@ -393,7 +393,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                     }
 
 
-                    $myarray[] = array("mystrdate" => strtotime($feedItem->get_date()), "mytitle" => $feedItem->get_title(), "mylink" => $feedItem->get_permalink(), "myGroup" => $feedInformation["FeedName"], "mydesc" => $feedItem->get_content(), "myimage" => $mediaImage, "mycatid" => $feedInformation["FeedCatID"], "myAuthor" => $itemAuthor);
+                    $myarray[] = array("mystrdate" => strtotime($feedItem->get_date()), "mytitle" => $feedItem->get_title(), "mylink" => $feedItem->get_permalink(), "myGroup" => $feedInformation["FeedName"], "mydesc" => $feedItem->get_content(), "myimage" => $mediaImage, "mycatid" => $feedInformation["FeedCatID"], "mybcatid" => $feedInformation["BlogCatID"], "myAuthor" => $itemAuthor);
 
                     unset($mediaImage);
                     unset($itemAuthor);
@@ -431,6 +431,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
                         "mydesc" => $feedItem->get_content(),
                         "myimage" => $mediaImage,
                         "mycatid" => $feedInformation["FeedCatID"],
+                        "mybcatid" => $feedInformation["BlogCatID"],
 						"post_type" => 'post',
                         "myAuthor" => $itemAuthor);
 
@@ -552,7 +553,7 @@ function wp_rss_multi_importer_post($feedID = NULL, $catID = NULL)
 
 
                 if ($addSource == 1) {
-                    $thisContent .= ' <br>Source: <a href=' . $items["mylink"] . '  ' . $openWindow . '>' . $items["myGroup"] . '</a>';
+                    $thisContent .= ' <br>' . __('Source') . ': <a href=' . $items["mylink"] . '  ' . $openWindow . '>' . $items["myGroup"] . '</a>';
                 }
 
 

@@ -861,13 +861,13 @@ function wp_rss_multi_importer_items_page()
             Feed #<?php echo $j; ?>&nbsp;
         </label>
         <input  class='wprss-input' size='75' name='rss_import_items[feed_name_<?php echo $j; ?>]'
-                id="feed_name_<?php echo $j; ?>" type='text' value='<?php echo $options['feed_name_'.$j]; ?>' />
+                id="feed_name_<?php echo $j; ?>" type='text' value='<?php if(isset($options['feed_name_'. $j])) echo $options['feed_name_'.$j]; ?>' />
     </p>
     <p>
         <label class='textinput' for='feed_url_<?php echo $j; ?>'>URL #<?php echo $j; ?></label>
 
         <input id='feed_url_<?php echo $j; ?>' class='wprss-input' size='75' name='rss_import_items[feed_url_<?php echo $j; ?>]'
-           type='text' value='<?php echo esc_url($options['feed_url_'. $j]); ?>' />
+           type='text' value='<?php if(isset($options['feed_url_'. $j])) echo esc_url($options['feed_url_'. $j]); ?>' />
     </p>
 <?php if (empty($catOptions)) { ?>
     <input id='feed_cat_<?php echo $j; ?>' class='wprss-input' size='10' name='rss_import_items[feed_cat_<?php echo $j; ?>]' type='hidden' value='0' />
