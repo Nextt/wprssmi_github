@@ -1,5 +1,5 @@
 <?php
-/*  Plugin Name: RSS Multi Importer
+/*  Plugin Name: RSS Multi Importer - iDSA
   Plugin URI: http://www.allenweiss.com/wp_plugin
   Description: All-in-one solution for importing & merging multiple feeds. Make blog posts or display on a page, excerpts w/ images, 8 templates, categorize and more.
   Version: 2.57
